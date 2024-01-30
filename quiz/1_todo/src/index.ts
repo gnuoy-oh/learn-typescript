@@ -1,8 +1,13 @@
 // 할일 목록 배열을 받는 타입
-let todoItems: {id: number, title: string, done: boolean}[];
+
+// 위 아래 코드 동일한 의미이다.
+// type Todo ={id: number, title: string, done: boolean};
+interface Todo {id: number, title: string, done: boolean};
+
+let todoItems: Todo[];
 
 // api
-function fetchTodoItems(): {id: number, title: string, done: boolean}[] {
+function fetchTodoItems(): Todo[] {
   const todos = [
     { id: 1, title: '안녕', done: false },
     { id: 2, title: '타입', done: false },
@@ -17,7 +22,7 @@ function fetchTodos(): object[] {
   return todos;
 }
 
-function addTodo(todo: {id: number, title: string, done: boolean}): void {
+function addTodo(todo: Todo): void {
   todoItems.push(todo);
 }
 
@@ -25,7 +30,7 @@ function deleteTodo(index: number): void {
   todoItems.splice(index, 1);
 }
 
-function completeTodo(index: number, todo: {id: number, title: string, done: boolean}): void {
+function completeTodo(index: number, todo: Todo): void {
   todo.done = true;
   todoItems.splice(index, 1, todo);
 }
@@ -49,7 +54,7 @@ function addTwoTodoItems() {
   addTodo(item1);
   addTodo(
     {
-      item: 5,
+      id: 5,
       title: '아이템 5',
       done: false
     }
