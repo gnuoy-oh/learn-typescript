@@ -1,53 +1,60 @@
+// ㅇ
 interface PhoneNumberDictionary {
   [phone: string]: {
     num: number;
   };
 }
 
+//
 interface Contact {
   name: string;
   address: string;
   phones: PhoneNumberDictionary;
 }
 
+enum PhoneType {
+  Home = 'home',
+  Office = 'office',
+  Studio = 'studio'
+}
+
 // api
-// TODO: 아래 함수의 반환 타입을 지정해보세요.
-function fetchContacts() {
+function fetchContacts(): Promise<Contact[]> {
   // TODO: 아래 변수의 타입을 지정해보세요.
-  const contacts = [
+  const contacts: Contact[] = [
     {
-      name: 'Tony',
-      address: 'Malibu',
+      name: "Tony",
+      address: "Malibu",
       phones: {
         home: {
-          num: 11122223333,
+          num: 11122223333
         },
         office: {
-          num: 44455556666,
-        },
-      },
+          num: 44455556666
+        }
+      }
     },
     {
-      name: 'Banner',
-      address: 'New York',
+      name: "Banner",
+      address: "New York",
       phones: {
         home: {
-          num: 77788889999,
-        },
-      },
+          num: 77788889999
+        }
+      }
     },
     {
-      name: '마동석',
-      address: '서울시 강남구',
+      name: "마동석",
+      address: "서울시 강남구",
       phones: {
         home: {
-          num: 213423452,
+          num: 213423452
         },
         studio: {
-          num: 314882045,
-        },
-      },
-    },
+          num: 314882045
+        }
+      }
+    }
   ];
   return new Promise(resolve => {
     setTimeout(() => resolve(contacts), 2000);
@@ -57,42 +64,45 @@ function fetchContacts() {
 // main
 class AddressBook {
   // TODO: 아래 변수의 타입을 지정해보세요.
-  contacts = [];
+  contacts: Contact[] = [];
 
+  // 초기화 코드 - 메서드 호출하고 있다.
   constructor() {
     this.fetchData();
   }
 
-  fetchData() {
+  fetchData(): void {
     fetchContacts().then(response => {
       this.contacts = response;
     });
   }
 
   /* TODO: 아래 함수들의 파라미터 타입과 반환 타입을 지정해보세요 */
-  findContactByName(name) {
+  findContactByName(name: string): Contact[] {
     return this.contacts.filter(contact => contact.name === name);
   }
 
-  findContactByAddress(address) {
+  findContactByAddress(address: string): Contact[] {
     return this.contacts.filter(contact => contact.address === address);
   }
 
-  findContactByPhone(phoneNumber, phoneType: string) {
+  // home, office, studio
+  findContactByPhone(phoneNumber: number, phoneType: PhoneType) : Contact[] {
     return this.contacts.filter(
       contact => contact.phones[phoneType].num === phoneNumber
     );
   }
 
-  addContact(contact) {
+  addContact(contact: Contact): void {
     this.contacts.push(contact);
   }
 
-  displayListByName() {
+  displayListByName(): string[] {
+    // map: 배열함수 (새 배열을 생성해 준다.)
     return this.contacts.map(contact => contact.name);
   }
 
-  displayListByAddress() {
+  displayListByAddress(): string[] {
     return this.contacts.map(contact => contact.address);
   }
   /* ------------------------------------------------ */
